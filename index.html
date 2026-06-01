@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduVerse — Plataforma Escolar Premium</title>
+
+  <!-- ─────────────────────────────────────────────
+       FONTES (Google Fonts)
+       • Syne       → títulos / display
+       • Space Mono → números e código (monospace)
+       • Plus Jakarta Sans → corpo do texto (body)
+  ───────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ─────────────────────────────────────────────
+       GRÁFICOS — Chart.js via CDN
+  ───────────────────────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- ─────────────────────────────────────────────
+       ESTILOS — arquivo externo styles.css
+  ───────────────────────────────────────────── -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       TELA DE LOGIN
+       Exibida ao abrir o sistema. Escondida após
+       autenticação bem-sucedida.
+  ═══════════════════════════════════════════ -->
+  <div id="login-screen">
+    <!-- Gradiente de fundo decorativo -->
+    <div class="login-bg"></div>
+
+    <!-- Partículas animadas no fundo da tela de login -->
+    <canvas id="login-particles"
+      style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.3">
+    </canvas>
+
+    <!-- Card central de login -->
+    <div class="login-card">
+
+      <!-- Logo + Título -->
+      <div class="login-logo-wrap">
+        <div class="login-logo-icon">🎓</div>
+        <div class="login-title text-gradient">EduVerse</div>
+        <div class="login-subtitle">Plataforma Escolar Premium v2.0</div>
+      </div>
+
+      <!-- Mensagem de erro (oculta por padrão) -->
+      <div class="login-error" id="login-error">
+        <span>❌</span>
+        <span id="login-error-text">Usuário ou senha incorretos.</span>
+      </div>
+
+      <!-- Campo: Usuário -->
+      <div class="login-field">
+        <label>Usuário</label>
+        <div class="login-field-wrap">
+          <span class="login-field-icon">👤</span>
+          <input
+            type="text"
+            id="login-user"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+            autofocus>
+        </div>
+      </div>
+
+      <!-- Campo: Senha -->
+      <div class="login-field">
+        <label>Senha</label>
+        <div class="login-field-wrap">
+          <span class="login-field-icon">🔒</span>
+          <input
+            type="password"
+            id="login-pass"
+            placeholder="Digite sua senha"
+            autocomplete="current-password">
+          <button
+            class="show-pwd-btn"
+            type="button"
+            onclick="togglePassword()"
+            id="toggle-pwd-btn"
+            title="Mostrar/ocultar senha">👁️
+          </button>
+        </div>
+      </div>
+
+      <!-- Botão de entrar -->
+      <button class="login-btn" id="login-btn" onclick="doLogin()">
+        Entrar na Plataforma
+      </button>
+
+      <div class="login-footer">
+        EduVerse © 2025 · Todos os direitos reservados
+      </div>
+    </div><!-- /login-card -->
+  </div><!-- /login-screen -->
+
+
+  <!-- ═══════════════════════════════════════════
+       TELA DE CARREGAMENTO
+       Exibida durante o boot do sistema após login.
+       Conteúdo interno é injetado via JS (startLoading).
+  ═══════════════════════════════════════════ -->
+  <div id="loading-screen" style="display:none">
+    <div class="loading-logo text-gradient">EduVerse</div>
+    <div style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono)">
+      Plataforma Escolar Premium v2.0
+    </div>
+    <div class="loading-bar-track">
+      <div class="loading-bar-fill" id="loading-bar"></div>
+    </div>
+    <div class="loading-text" id="loading-text">Iniciando sistema…</div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       CANVAS DE PARTÍCULAS — fundo do app
+       Animado via JS (Particles.init)
+  ═══════════════════════════════════════════ -->
+  <canvas id="particles-canvas"></canvas>
+
+
+  <!-- ═══════════════════════════════════════════
+       APLICAÇÃO PRINCIPAL
+       Oculta até o carregamento terminar.
+       Estrutura:
+         ├── #sidebar-root  → sidebar injetada por JS
+         └── #page-content
+               ├── #topbar-root  → topbar injetada por JS
+               └── #page-root    → páginas injetadas pelo Router
+  ═══════════════════════════════════════════ -->
+  <div id="app" style="display:none">
+    <div class="main-layout">
+
+      <!-- Sidebar (renderizada dinamicamente via renderSidebar()) -->
+      <div id="sidebar-root"></div>
+
+      <!-- Área de conteúdo principal -->
+      <div class="page-content" id="page-content">
+
+        <!-- Topbar (renderizada dinamicamente via renderTopbar()) -->
+        <div id="topbar-root"></div>
+
+        <!-- Conteúdo da página ativa (trocado pelo Router) -->
+        <div id="page-root"
+          style="opacity:0;transition:opacity 0.3s ease,transform 0.3s ease">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal do Pomodoro (injetado via renderPomodoro()) -->
+    <div id="pomodoro-root"></div>
+
+    <!-- Container de Toasts / notificações flutuantes -->
+    <div class="toast-container" id="toast-container"></div>
+  </div><!-- /app -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS — arquivo externo app.js
+  ═══════════════════════════════════════════ -->
+  <script src="./app.js"></script>
+
+</body>
+</html>

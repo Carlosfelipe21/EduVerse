@@ -1,0 +1,1367 @@
+/* ╔═══════════════════════════════════════════════════════════════╗
+   ║              EDUVERSE — ESTILOS GLOBAIS (styles.css)          ║
+   ║                                                               ║
+   ║  Índice de seções:                                            ║
+   ║   1. Variáveis CSS (Design Tokens)                            ║
+   ║   2. Reset & Base                                             ║
+   ║   3. Utilitários de Texto                                     ║
+   ║   4. Utilitários de Flexbox                                   ║
+   ║   5. Utilitários de Gap / Margin / Padding                    ║
+   ║   6. Grids e Layouts                                          ║
+   ║   7. Componentes — Cards                                      ║
+   ║   8. Componentes — Botões                                     ║
+   ║   9. Componentes — Badges                                     ║
+   ║  10. Componentes — Inputs                                     ║
+   ║  11. Componentes — XP Bar                                     ║
+   ║  12. Componentes — Avatar                                     ║
+   ║  13. Componentes — Stat Card                                  ║
+   ║  14. Componentes — Notificações (dot)                         ║
+   ║  15. Componentes — Seções (Section Header/Title/Divider)      ║
+   ║  16. Componentes — Ranking                                    ║
+   ║  17. Componentes — Mission Card                               ║
+   ║  18. Componentes — Post Card (Feed)                           ║
+   ║  19. Componentes — Sidebar                                    ║
+   ║  20. Componentes — Topbar                                     ║
+   ║  21. Componentes — Layout Principal                           ║
+   ║  22. Componentes — Tabs                                       ║
+   ║  23. Componentes — Modal                                      ║
+   ║  24. Componentes — Toast                                      ║
+   ║  25. Componentes — Pomodoro                                   ║
+   ║  26. Componentes — Achievement                                ║
+   ║  27. Componentes — Livros / Loja / Casas                      ║
+   ║  28. Componentes — Wrapped                                    ║
+   ║  29. Componentes — Mood                                       ║
+   ║  30. Componentes — Partículas                                 ║
+   ║  31. Tela de Login                                            ║
+   ║  32. Tela de Carregamento (Loading)                           ║
+   ║  33. Chart Container                                          ║
+   ║  34. Animações (Keyframes & Classes)                          ║
+   ║  35. Responsividade (Media Queries)                           ║
+   ╚═══════════════════════════════════════════════════════════════╝ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   1. VARIÁVEIS CSS — Design Tokens
+   Centraliza todas as cores, sombras, tamanhos e fontes usados
+   no projeto. Altere aqui para mudar o tema global.
+───────────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-deep:           #030712;
+  --bg-surface:        #0d1117;
+  --bg-card:           rgba(13,17,27,0.8);
+  --bg-glass:          rgba(255,255,255,0.04);
+  --bg-glass-hover:    rgba(255,255,255,0.07);
+
+  /* Cores Neon */
+  --neon-blue:         #00d4ff;
+  --neon-purple:       #8b5cf6;
+  --neon-cyan:         #06b6d4;
+  --neon-green:        #10b981;
+  --neon-orange:       #f59e0b;
+  --neon-pink:         #ec4899;
+  --neon-red:          #ef4444;
+
+  /* Texto */
+  --text-primary:      #f0f6fc;
+  --text-secondary:    #8b949e;
+  --text-muted:        #484f58;
+
+  /* Bordas */
+  --border:            rgba(255,255,255,0.08);
+  --border-glow:       rgba(0,212,255,0.3);
+
+  /* Gradientes */
+  --grad-primary:      linear-gradient(135deg, #00d4ff 0%, #8b5cf6 50%, #06b6d4 100%);
+  --grad-gold:         linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+
+  /* Sombras */
+  --shadow-card:       0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow-blue:  0 0 20px rgba(0,212,255,0.25);
+  --shadow-glow-green: 0 0 20px rgba(16,185,129,0.25);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Layout */
+  --sidebar-w:  260px;
+  --topbar-h:   64px;
+
+  /* Transições */
+  --transition:      0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Fontes */
+  --font-display: 'Syne', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   2. RESET & BASE
+───────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a   { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+button { cursor: pointer; font-family: inherit; }
+ul, ol { list-style: none; }
+input, select, textarea { font-family: inherit; }
+
+/* Scrollbar customizada */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 4px; }
+
+/* Hierarquia tipográfica */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   3. UTILITÁRIOS DE TEXTO
+───────────────────────────────────────────────────────────────── */
+.font-mono { font-family: var(--font-mono); }
+
+/* Texto com gradiente (efeito neon) */
+.text-gradient {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Texto dourado */
+.text-gold {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cores rápidas */
+.text-neon-blue   { color: var(--neon-blue);   }
+.text-neon-green  { color: var(--neon-green);  }
+.text-neon-orange { color: var(--neon-orange); }
+.text-neon-pink   { color: var(--neon-pink);   }
+.text-neon-purple { color: var(--neon-purple); }
+.text-secondary   { color: var(--text-secondary); }
+.text-muted       { color: var(--text-muted);     }
+
+/* Tamanhos */
+.text-sm   { font-size: 12px; }
+.text-base { font-size: 14px; }
+.text-lg   { font-size: 18px; }
+
+/* Alinhamento */
+.text-center { text-align: center; }
+.text-right  { text-align: right;  }
+
+/* Pesos */
+.font-600 { font-weight: 600; }
+.font-700 { font-weight: 700; }
+.font-800 { font-weight: 800; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   4. UTILITÁRIOS DE FLEXBOX
+───────────────────────────────────────────────────────────────── */
+.flex         { display: flex !important; }
+.flex-col     { display: flex !important; flex-direction: column !important; }
+.items-center { align-items: center !important; }
+.items-start  { align-items: flex-start !important; }
+.items-end    { align-items: flex-end !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-center  { justify-content: center !important; }
+.flex-wrap    { flex-wrap: wrap !important; }
+.flex-1       { flex: 1 !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   5. UTILITÁRIOS DE GAP, MARGIN E PADDING
+───────────────────────────────────────────────────────────────── */
+/* Gaps */
+.gap-4  { gap: 4px;  }
+.gap-6  { gap: 6px;  }
+.gap-8  { gap: 8px;  }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+.gap-24 { gap: 24px; }
+
+/* Margin Top */
+.mt-4  { margin-top: 4px;  }
+.mt-8  { margin-top: 8px;  }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+
+/* Margin Bottom */
+.mb-4  { margin-bottom: 4px;  }
+.mb-8  { margin-bottom: 8px;  }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+
+/* Padding */
+.p-12 { padding: 12px; }
+.p-16 { padding: 16px; }
+.p-20 { padding: 20px; }
+.p-24 { padding: 24px; }
+
+/* Dimensões */
+.w-full { width: 100%; }
+
+/* Visibilidade */
+.hidden { display: none !important; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   6. GRIDS E LAYOUTS
+───────────────────────────────────────────────────────────────── */
+.grid-4  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-3  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-2  { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+/* Grade responsiva automática (auto-fill com largura mínima de 240px) */
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+/* Layout: sidebar fixa à direita + conteúdo principal */
+.layout-sidebar-content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   7. COMPONENTES — CARDS
+   glass-card: com hover / glass-card-static: sem hover
+───────────────────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+}
+.glass-card:hover {
+  background: var(--bg-glass-hover);
+  border-color: rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.glass-card-static {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   8. COMPONENTES — BOTÕES
+───────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Botão primário: gradiente neon */
+.btn-primary {
+  background: var(--grad-primary);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.45);
+}
+
+/* Botão glass: transparente com borda */
+.btn-glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+}
+.btn-glass:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+/* Tamanhos */
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+.btn-lg { padding: 14px 28px; font-size: 16px; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   9. COMPONENTES — BADGES (pílulas de status)
+───────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-blue   { background: rgba(0,212,255,0.15);   color: var(--neon-blue);   border: 1px solid rgba(0,212,255,0.3);   }
+.badge-purple { background: rgba(139,92,246,0.15);  color: var(--neon-purple); border: 1px solid rgba(139,92,246,0.3);  }
+.badge-green  { background: rgba(16,185,129,0.15);  color: var(--neon-green);  border: 1px solid rgba(16,185,129,0.3);  }
+.badge-orange { background: rgba(245,158,11,0.15);  color: var(--neon-orange); border: 1px solid rgba(245,158,11,0.3);  }
+.badge-pink   { background: rgba(236,72,153,0.15);  color: var(--neon-pink);   border: 1px solid rgba(236,72,153,0.3);  }
+.badge-gold   { background: rgba(251,191,36,0.15);  color: #fbbf24;            border: 1px solid rgba(251,191,36,0.3);  }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   10. COMPONENTES — INPUT / CAMPO DE TEXTO
+───────────────────────────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: var(--transition);
+  outline: none;
+}
+.input-field:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 0 3px rgba(0,212,255,0.15);
+  background: rgba(0,212,255,0.03);
+}
+.input-field::placeholder { color: var(--text-muted); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   11. COMPONENTES — XP BAR (barra de progresso)
+───────────────────────────────────────────────────────────────── */
+.xp-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.xp-bar-fill {
+  height: 100%;
+  background: var(--grad-primary);
+  border-radius: 999px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   12. COMPONENTES — AVATAR
+───────────────────────────────────────────────────────────────── */
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Anel neon ao redor do avatar */
+.avatar-ring {
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0,212,255,0.4);
+}
+
+/* Ponto verde de "online" */
+.avatar-online::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  border: 2px solid var(--bg-surface);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   13. COMPONENTES — STAT CARD (cards de estatísticas)
+───────────────────────────────────────────────────────────────── */
+.stat-card {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-delta     { font-size: 12px; margin-top: 8px; }
+.stat-delta.up  { color: var(--neon-green); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   14. COMPONENTES — PONTO DE NOTIFICAÇÃO (notif dot)
+───────────────────────────────────────────────────────────────── */
+.notif-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: var(--neon-red);
+  border-radius: 50%;
+  border: 1.5px solid var(--bg-surface);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);   opacity: 1;   }
+  50%       { transform: scale(1.3); opacity: 0.7; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   15. COMPONENTES — SEÇÃO (Section Header / Title / Divider)
+───────────────────────────────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Título de seção com marcação lateral gradiente */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 18px;
+  background: var(--grad-primary);
+  border-radius: 2px;
+}
+
+/* Linha divisória */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   16. COMPONENTES — RANKING (itens da lista de classificação)
+───────────────────────────────────────────────────────────────── */
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.rank-item:hover { background: var(--bg-glass-hover); }
+
+/* Destaques para top 3 */
+.rank-item.rank-1 { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); }
+.rank-item.rank-2 { background: rgba(148,163,184,0.08); border: 1px solid rgba(148,163,184,0.2); }
+.rank-item.rank-3 { background: rgba(180,83,9,0.08);   border: 1px solid rgba(180,83,9,0.2);   }
+
+.rank-number {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  width: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+.rank-number.gold   { color: #fbbf24; }
+.rank-number.silver { color: #94a3b8; }
+.rank-number.bronze { color: #b45309; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   17. COMPONENTES — MISSION CARD (card de missão)
+───────────────────────────────────────────────────────────────── */
+.mission-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.mission-card:hover {
+  border-color: var(--neon-blue);
+  box-shadow: var(--shadow-glow-blue);
+}
+.mission-card.completed {
+  border-color: var(--neon-green);
+  box-shadow: var(--shadow-glow-green);
+  opacity: 0.8;
+}
+
+.mission-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   18. COMPONENTES — POST CARD (Feed Social)
+───────────────────────────────────────────────────────────────── */
+.post-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: var(--transition);
+}
+.post-card:hover { border-color: rgba(0,212,255,0.2); }
+
+.post-actions { display: flex; gap: 20px; }
+
+.post-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+.post-action-btn:hover { color: var(--neon-blue); background: rgba(0,212,255,0.08); }
+.post-action-btn.liked { color: var(--neon-pink); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   19. COMPONENTES — SIDEBAR (navegação lateral)
+───────────────────────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(3,7,18,0.97);
+  backdrop-filter: blur(30px);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform var(--transition-slow);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Logo da sidebar */
+.sidebar-logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--grad-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-glow-blue);
+}
+.logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+}
+
+/* Navegação interna */
+.sidebar-nav { flex: 1; padding: 12px; }
+
+.nav-group { margin-bottom: 24px; }
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 8px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+.nav-item:hover  { color: var(--text-primary); background: var(--bg-glass); }
+.nav-item.active {
+  color: var(--neon-blue);
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.nav-icon { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--neon-red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  min-width: 18px;
+  text-align: center;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   20. COMPONENTES — TOPBAR (barra superior fixa)
+───────────────────────────────────────────────────────────────── */
+.topbar {
+  height: var(--topbar-h);
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  background: rgba(3,7,18,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 90;
+  transition: left var(--transition-slow);
+}
+
+/* Campo de busca da topbar */
+.topbar-search { flex: 1; max-width: 400px; position: relative; }
+.topbar-search input {
+  width: 100%;
+  padding: 8px 16px 8px 38px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: var(--transition);
+}
+.topbar-search input:focus {
+  border-color: var(--neon-blue);
+  background: rgba(0,212,255,0.03);
+}
+
+.topbar-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Botões circulares da topbar */
+.topbar-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+.topbar-btn:hover { color: var(--neon-blue); border-color: var(--neon-blue); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   21. COMPONENTES — LAYOUT PRINCIPAL
+───────────────────────────────────────────────────────────────── */
+.main-layout  { display: flex; min-height: 100vh; }
+
+.page-content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding-top: var(--topbar-h);
+  min-height: 100vh;
+}
+
+.page-inner { padding: 28px; }
+
+.page-header { margin-bottom: 28px; }
+.page-header h1 { font-size: 26px; margin-bottom: 4px; }
+.page-header p  { color: var(--text-secondary); font-size: 14px; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   22. COMPONENTES — TABS (abas de navegação interna)
+───────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+}
+.tab-btn.active {
+  background: var(--bg-glass);
+  color: var(--neon-blue);
+  border: 1px solid rgba(0,212,255,0.2);
+}
+
+/* Conteúdo de cada aba */
+.tab-content        { display: none; }
+.tab-content.active { display: block; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   23. COMPONENTES — MODAL
+───────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(20px);
+  transition: var(--transition);
+}
+.modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-body { padding: 24px; }
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.modal-close:hover { color: var(--text-primary); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   24. COMPONENTES — TOAST (notificações flutuantes)
+───────────────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 12px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 280px;
+  animation: toastIn 0.3s ease forwards;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Variantes de cor */
+.toast.success { border-left: 3px solid var(--neon-green); }
+.toast.error   { border-left: 3px solid var(--neon-red);   }
+.toast.info    { border-left: 3px solid var(--neon-blue);  }
+.toast.hiding  { animation: toastOut 0.3s ease forwards;   }
+
+@keyframes toastIn  { from { opacity:0; transform:translateX(100%); } to { opacity:1; transform:translateX(0); } }
+@keyframes toastOut { from { opacity:1; transform:translateX(0); } to { opacity:0; transform:translateX(100%); } }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   25. COMPONENTES — POMODORO (temporizador)
+───────────────────────────────────────────────────────────────── */
+/* Anel animado com conic-gradient */
+.pomodoro-ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(var(--neon-blue) 0deg, rgba(255,255,255,0.05) 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background 0.1s linear;
+}
+
+/* Centro do anel */
+.pomodoro-inner {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pomodoro-time {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--neon-blue);
+  line-height: 1;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   26. COMPONENTES — ACHIEVEMENT (conquistas / badges)
+───────────────────────────────────────────────────────────────── */
+.achievement-card {
+  padding: 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.achievement-card:hover { transform: translateY(-4px); }
+
+.achievement-card.unlocked {
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 15px rgba(245,158,11,0.2);
+}
+.achievement-card.locked { opacity: 0.4; filter: grayscale(1); }
+
+.achievement-emoji { font-size: 32px; margin-bottom: 8px; display: block; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   27. COMPONENTES — LIVROS / LOJA / CASAS
+───────────────────────────────────────────────────────────────── */
+/* Biblioteca */
+.book-card {
+  padding: 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.book-card:hover { transform: translateY(-3px); border-color: rgba(0,212,255,0.3); }
+
+.book-cover {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+/* Loja */
+.store-item {
+  padding: 20px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: var(--transition);
+}
+.store-item:hover {
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 20px rgba(245,158,11,0.2);
+}
+.store-icon { font-size: 40px; margin-bottom: 12px; display: block; }
+
+/* Casas */
+.house-card {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 2px solid;
+  transition: var(--transition);
+}
+.house-card:hover { transform: translateY(-4px); }
+.house-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   28. COMPONENTES — WRAPPED (resumo anual)
+───────────────────────────────────────────────────────────────── */
+.wrapped-hero {
+  min-height: 300px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay sutil de gradiente neon */
+.wrapped-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad-primary);
+  opacity: 0.05;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   29. COMPONENTES — MOOD (botões de humor)
+───────────────────────────────────────────────────────────────── */
+.mood-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-glass);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 20px;
+}
+.mood-btn:hover   { transform: scale(1.15); border-color: var(--neon-blue); }
+.mood-btn.selected {
+  border-color: var(--neon-blue);
+  background: rgba(0,212,255,0.1);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   30. COMPONENTES — PARTÍCULAS (canvas de fundo)
+───────────────────────────────────────────────────────────────── */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   31. TELA DE LOGIN
+───────────────────────────────────────────────────────────────── */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-deep);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Fundo decorativo com gradientes radiais */
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,   rgba(0,212,255,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%,  rgba(139,92,246,0.08) 0%, transparent 60%);
+}
+
+/* Card central do login */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(13,17,27,0.95);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  backdrop-filter: blur(30px);
+  box-shadow:
+    0 0 60px rgba(0,212,255,0.08),
+    0 24px 48px rgba(0,0,0,0.5);
+}
+
+/* Área do logo */
+.login-logo-wrap   { text-align: center; margin-bottom: 32px; }
+.login-logo-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--grad-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: var(--shadow-glow-blue);
+  margin-bottom: 12px;
+}
+.login-title    { font-family: var(--font-display); font-size: 28px; font-weight: 800; }
+.login-subtitle { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+
+/* Campos do formulário */
+.login-field { margin-bottom: 16px; }
+.login-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.login-field-wrap  { position: relative; }
+.login-field-icon  {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  pointer-events: none;
+}
+.login-field input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: var(--transition);
+  outline: none;
+}
+.login-field input:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 0 3px rgba(0,212,255,0.12);
+  background: rgba(0,212,255,0.03);
+}
+.login-field input::placeholder { color: var(--text-muted); }
+
+/* Botão de login */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0,212,255,0.3);
+  margin-top: 8px;
+}
+.login-btn:hover    { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.45); }
+.login-btn:active   { transform: translateY(0); }
+.login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Mensagem de erro */
+.login-error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #fca5a5;
+  margin-bottom: 16px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+.login-error.show { display: flex; }
+
+/* Rodapé do login */
+.login-footer { text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 12px; }
+
+/* Botão de mostrar/ocultar senha */
+.show-pwd-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  transition: var(--transition);
+}
+.show-pwd-btn:hover { color: var(--text-primary); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   32. TELA DE CARREGAMENTO (Loading Screen)
+───────────────────────────────────────────────────────────────── */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-deep);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loading-logo { font-family: var(--font-display); font-size: 42px; font-weight: 800; }
+
+.loading-bar-track {
+  width: 200px;
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 999px;
+}
+.loading-bar-fill {
+  height: 100%;
+  background: var(--grad-primary);
+  border-radius: 999px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.loading-text { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   33. CHART CONTAINER (espaço reservado para gráficos)
+───────────────────────────────────────────────────────────────── */
+.chart-container { position: relative; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   34. ANIMAÇÕES (Keyframes & Classes utilitárias)
+───────────────────────────────────────────────────────────────── */
+/* Entrada suave com leve deslocamento vertical */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Flutuação suave (ex: avatar no perfil) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Shake de erro no login */
+@keyframes loginShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+/* Classes utilitárias de animação */
+.animate-fade-up { animation: fadeInUp 0.5s ease forwards; }
+.animate-float   { animation: float 4s ease-in-out infinite; }
+
+/* Delays escalonados para animações em sequência */
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.3s; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   35. RESPONSIVIDADE (Media Queries)
+───────────────────────────────────────────────────────────────── */
+
+/* Telas médias (≤ 1200px): colapsa grid de 4 para 2 colunas */
+@media (max-width: 1200px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .layout-sidebar-content { grid-template-columns: 1fr; }
+}
+
+/* Telas tablet (≤ 900px): sidebar esconde, conteúdo ocupa tudo */
+@media (max-width: 900px) {
+  .sidebar          { transform: translateX(-100%); }
+  .sidebar.open     { transform: translateX(0); }
+  .page-content     { margin-left: 0; }
+  .topbar           { left: 0; }
+  .grid-3           { grid-template-columns: repeat(2, 1fr); }
+  .page-inner       { padding: 20px 16px; }
+  #sidebar-toggle-btn { display: flex !important; }
+}
+
+/* Telas mobile (≤ 600px): tudo vira coluna única */
+@media (max-width: 600px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
